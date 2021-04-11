@@ -1,7 +1,6 @@
-import React, {useReducer, useState} from 'react';
+import React from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
-import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
@@ -10,9 +9,8 @@ import {
     ChangeTodolistFilterAC,
     ChangeTodolistTitleAC,
     RemoveTodolistAC,
-    todolistsReducer
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, changeTaskTitleAC} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, removeTaskAC, changeTaskTitleAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
 
@@ -28,7 +26,6 @@ export type TaskStateType = {
 }
 
 function AppWithRedux() {
-
 
     const todolists = useSelector<AppRootState, Array<TodoListType>>( state =>state.todolists );
     const tasks = useSelector<AppRootState, TaskStateType>( state =>state.tasks );
@@ -62,30 +59,6 @@ function AppWithRedux() {
     function changeTaskTitle(taskID: string, newTitle: string, TodoListId: string) {
         dispatch(changeTaskTitleAC(taskID, newTitle, TodoListId))
     }
-
-    // const TodoListId1 = v1();
-    // const TodoListId2 = v1();
-
-    /*let [TodoLists, dispatchTodolistsReducer] = useReducer(todolistsReducer,[
-        {id: TodoListId1, title: "What to learn", filter: "all"},
-        {id: TodoListId2, title: "What to buy", filter: "all"}
-    ])*/
-
-    /*let [tasksObj, dispatchTasksReducer] = useReducer(tasksReducer, {
-        [TodoListId1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "Rest API", isDone: false},
-            {id: v1(), title: "GraphQL", isDone: false},
-        ],
-        [TodoListId2]: [
-            {id: v1(), title: "Bread", isDone: false},
-            {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "Eggs", isDone: true},
-            {id: v1(), title: "Fruits", isDone: false},
-        ],
-    })*/
 
     function addTodolist(title: string) {
         const action = AddTodolistAC(title);
