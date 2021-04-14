@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
-import {Button, Checkbox, IconButton} from "@material-ui/core";
+import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import { Task } from './Task';
 
@@ -59,7 +59,7 @@ export const Todolist = React.memo((props: PropsType) => {
         <AddItemForm addItem={addTask}/>
         <div>
             {
-                props.tasks.map(t => <Task
+                tasksForTodolist.map(t => <Task
                         key={t.id}
                         task={t}
                         changeTaskStatus={props.changeTaskStatus}
