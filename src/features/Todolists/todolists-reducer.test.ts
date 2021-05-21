@@ -1,5 +1,4 @@
 import {
-    ChangeTodolistFilterActionType,
     FilterValuesType,
     todolistsReducer,
     RemoveTodolistAC,

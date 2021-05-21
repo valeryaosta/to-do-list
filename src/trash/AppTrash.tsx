@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import './App.css';
-import {Todolist} from './Todolist';
+import '../app/App.css';
+import {Todolist} from '../features/Todolists/Todolist/Todolist';
 import {v1} from "uuid";
-import {AddItemForm} from "./AddItemForm";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import {TaskPriorities, TaskStatuses, TaskType} from "./api/todolists-api";
-import {FilterValuesType, TodoListDomainType} from "./state/todolists-reducer";
+import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolists-api";
+import {FilterValuesType, TodoListDomainType} from "../features/Todolists/todolists-reducer";
 
 export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
-function App() {
+function AppTrash() {
 
     function removeTask(id: string, TodolistId: string) {
         let tasks = tasksObj[TodolistId];
@@ -179,4 +179,4 @@ function App() {
     );
 }
 
-export default App;
+export default AppTrash;
