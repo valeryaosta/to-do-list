@@ -1,5 +1,6 @@
 import {todolistsAPI, TodoListType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
+import {setAppStatusAC, setAppStatusActionType} from "../../app/app-reduser";
 
 const initialState: Array<TodoListDomainType> = [];
 
@@ -35,32 +36,40 @@ export const SetTodolistAC = (todolists: Array<TodoListType>) => ({type: "SET-TO
 //thunks
 export const setTodolistsTC = () => {
     return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setAppStatusAC("loading"))
         todolistsAPI.getTodolists()
             .then(res => {
+                dispatch(setAppStatusAC("succeeded"))
                 dispatch(SetTodolistAC(res.data))
             })
     }
 }
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setAppStatusAC("loading"))
         todolistsAPI.deleteTodoTitle(todolistId)
-            .then(res => {
+            .then((res) => {
+                dispatch(setAppStatusAC("succeeded"))
                 dispatch(RemoveTodolistAC(todolistId))
             })
     }
 }
 export const addTodolistTC = (title: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setAppStatusAC("loading"))
         todolistsAPI.createTodolists(title)
             .then((res) => {
+                dispatch(setAppStatusAC("succeeded"))
                 dispatch(AddTodolistAC(res.data.data.item))
             })
     }
 }
 export const changeTodolistTitleTC = (id: string, title: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setAppStatusAC("loading"))
         todolistsAPI.updateTodoTitle(id, title)
             .then((res) => {
+                dispatch(setAppStatusAC("succeeded"))
                 dispatch(ChangeTodolistTitleAC(id, title))
             })
     }
@@ -76,6 +85,7 @@ type ActionsType =
     | ReturnType<typeof ChangeTodolistTitleAC>
     | ReturnType<typeof ChangeTodolistFilterAC>
     | SetTodolistsActionType
+    | setAppStatusActionType
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodoListDomainType = TodoListType & {
     filter: FilterValuesType
